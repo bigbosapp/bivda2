@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Dokumen lama hanya dibaca saat migrasi. Versi baru menulis ke subkoleksi.
+    match /artifacts/{appId}/users/{userId} {
+      allow get: if appId == 'bivda-app'
+                 && request.auth != null
+                 && request.auth.uid == userId;
+      allow list, create, update, delete: if false;
+
+      match /{collectionName}/{documentId} {
+        allow read, write: if appId == 'bivda-app'
+                           && request.auth != null
+                           && request.auth.uid == userId
+                           && collectionName in ['categories', 'customers', 'transactions', 'losses', 'meta'];
+      }
+    }
+  }
+}

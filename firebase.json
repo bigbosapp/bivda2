@@ -1,0 +1,21 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "firestore.rules",
+      "firestore.indexes.json",
+      "README.md",
+      "server.mjs",
+      "start-app.cmd",
+      "backup/**",
+      "k/**",
+      "o/**"
+    ]
+  }
+}
